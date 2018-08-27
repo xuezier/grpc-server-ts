@@ -2,7 +2,10 @@
   "compilerOptions": {
     "target": "es6",
     "lib": ["dom", "es7"],
-    "types": ["reflect-metadata"],
+    "types": ["node"],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "module": "commonjs",
     "moduleResolution": "node",
     "experimentalDecorators":true,
@@ -12,7 +15,7 @@
     "outDir": "app"
   },
   "include": [
-    "**/*.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules",

@@ -5,13 +5,13 @@ import { ServiceContainer } from './ServiceContainer';
 import { SettingRegistry } from './SettingRegistry';
 
 export class RpcRegistry {
-  static private _port: number | string;
-  static private _host: string;
-  static private _ca: string;
-  static private _cert: string;
-  static private _key: string;
+  private static _port: number | string;
+  private static _host: string;
+  private static _ca: string;
+  private static _cert: string;
+  private static _key: string;
 
-  static private _credentials: GRPC.ServerCredentials;
+  private static _credentials: GRPC.ServerCredentials;
 
   static get port(): string | number {
     return this._port;
@@ -33,7 +33,7 @@ export class RpcRegistry {
     return this._key;
   }
 
-  static private _server: GRPC.Server = new GRPC.Server();
+  private static _server: GRPC.Server = new GRPC.Server();
 
   static get server() {
     return this._server;
@@ -46,13 +46,13 @@ export class RpcRegistry {
     this._start();
   }
 
-  static private _start() {
+  private static _start() {
     let address = `${this.host}:${this.port}`;
     this.server.bind(address, this._credentials);
     this.server.start();
   }
 
-  static private _loadSettings() {
+  private static _loadSettings() {
     let { port, host, ca, cert, key } = SettingRegistry.settings;
     this._port = port;
     this._host = host || '127.0.0.1';
@@ -62,7 +62,7 @@ export class RpcRegistry {
   }
 
 
-  static private _registryService() {
+  private static _registryService() {
     for (let serviceContainer of ServiceContainer.services) {
       let rpc: { [x: string]: Function } = {};
       for (let key in serviceContainer.service) {
@@ -78,7 +78,7 @@ export class RpcRegistry {
     }
   }
 
-  static private _addTls() {
+  private static _addTls() {
     let ca = FS.readFileSync(this.ca);
     let cert = FS.readFileSync(this.cert);
     let key = FS.readFileSync(this.key);

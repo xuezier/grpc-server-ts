@@ -39,7 +39,7 @@ export class ServiceContainer {
     this.routes.push({ target, route, func });
   }
 
-  static private _generateRouteFunc(route: Function): Function {
+  private static _generateRouteFunc(route: Function): Function {
     let func = function (call) {
       call.on('data', async function (data) {
         let result = await route(data);
