@@ -1,10 +1,11 @@
 {
   "name": "grpc-server-ts",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "a grpc server side module built by typescrpt",
   "main": "app/index.js",
+  "types": "app/index.d.ts",
   "scripts": {
-    "build": "tsc -w -p .",
+    "build": "tsc --declaration -w -p .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "homepage": "https://github.com/xuezier/grpc-server-ts",
@@ -23,6 +24,7 @@
     "typescript": "^2.9.2"
   },
   "devDependencies": {
-    "@types/node": "^10.5.4"
+    "@types/node": "^10.5.4",
+    "typedoc": "^0.12.0"
   }
 }
