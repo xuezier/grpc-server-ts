@@ -6,6 +6,7 @@
  * @desc [description]
 */
 import * as GRPC from 'grpc';
+import * as protoLoader from '@grpc/proto-loader';
 
 export class ServiceContainer {
   static services: { service: any, target: Function }[] = [];
@@ -19,7 +20,14 @@ export class ServiceContainer {
    * @memberof ServiceContainer
    */
   static registryService(target: Function, path: string) {
-    let protoDescriptor = GRPC.load(path);
+    let packageDefinition = protoLoader.loadSync(path, {
+        keepCase: true,
+        longs: String,
+        enums: String,
+        defaults: true,
+        oneofs: true
+    });
+    let protoDescriptor = GRPC.loadPackageDefinition(packageDefinition);
 
     const packages = Object.keys(protoDescriptor);
     for (let packageKey of packages) {
