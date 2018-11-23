@@ -79,12 +79,16 @@ export class RpcRegistry {
   }
 
   private static _addTls() {
-    let ca = FS.readFileSync(this.ca);
-    let cert = FS.readFileSync(this.cert);
-    let key = FS.readFileSync(this.key);
-    this._credentials = GRPC.ServerCredentials.createSsl(ca, [{
-      cert_chain: cert,
-      private_key: key
-    }], true);
+    if (!this.ca || !this.cert || !this.key) {
+        this._credentials = GRPC.ServerCredentials.createInsecure()
+    } else {
+        let ca = FS.readFileSync(this.ca);
+        let cert = FS.readFileSync(this.cert);
+        let key = FS.readFileSync(this.key);
+        this._credentials = GRPC.ServerCredentials.createSsl(ca, [{
+        cert_chain: cert,
+        private_key: key
+        }], true);
+    }
   }
 }
