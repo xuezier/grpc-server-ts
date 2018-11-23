@@ -71,6 +71,9 @@ export class RpcRegistry {
           let routeContainer = ServiceContainer.routes.find(r => {
             return (r.target.constructor === serviceContainer.target && route === r.route)
           });
+
+          let _func = ServiceContainer.generateRouteFunc(serviceContainer.service, route);
+          routeContainer.func = _func;
           rpc[key] = routeContainer.func;
         }
       }

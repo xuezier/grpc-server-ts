@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "target": "es6",
     "lib": ["dom", "es7"],
     "types": ["node"],
