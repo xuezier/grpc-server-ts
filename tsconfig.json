@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "target": "es6",
     "lib": ["dom", "es7"],
     "types": ["node"],
@@ -11,7 +13,7 @@
     "experimentalDecorators":true,
     "emitDecoratorMetadata": true,
     "sourceMap": true,
-    "declaration": false,
+    "declaration": true,
     "outDir": "app"
   },
   "include": [
