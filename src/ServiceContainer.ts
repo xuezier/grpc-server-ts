@@ -47,8 +47,8 @@ export class ServiceContainer {
     this.routes.push({ target, route });
   }
 
-  static generateRouteFunc(service: any, route: Function) {
-    return this._generateRouteFunc(service, route);
+  static generateRouteFunc(...args) {
+    return this._generateRouteFunc.apply(this, args);
   }
 
   private static _generateRouteFunc(service: any, route: Function): Function {

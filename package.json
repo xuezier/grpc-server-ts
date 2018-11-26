@@ -1,6 +1,6 @@
 {
   "name": "grpc-server-ts",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "a grpc server side module built by typescrpt",
   "main": "app/index.js",
   "types": "app/index.d.ts",
