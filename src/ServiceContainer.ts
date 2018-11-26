@@ -4,7 +4,7 @@
  * @create date 2018-06-14 06:11:20
  * @modify date 2018-06-14 06:11:20
  * @desc [description]
-*/
+ */
 import * as GRPC from 'grpc';
 import * as protoLoader from '@grpc/proto-loader';
 

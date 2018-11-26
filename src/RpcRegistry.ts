@@ -61,7 +61,6 @@ export class RpcRegistry {
     this._key = key;
   }
 
-
   private static _registryService() {
     for (let serviceContainer of ServiceContainer.services) {
       let rpc: { [x: string]: Function } = {};
@@ -69,7 +68,7 @@ export class RpcRegistry {
         let route = serviceContainer.target.prototype[key];
         if (route) {
           let routeContainer = ServiceContainer.routes.find(r => {
-            return (r.target.constructor === serviceContainer.target && route === r.route)
+            return (r.target.constructor === serviceContainer.target && route === r.route);
           });
 
           let _func = ServiceContainer.generateRouteFunc(serviceContainer.service, route);
@@ -83,7 +82,7 @@ export class RpcRegistry {
 
   private static _addTls() {
     if (!this.ca || !this.cert || !this.key) {
-        this._credentials = GRPC.ServerCredentials.createInsecure()
+        this._credentials = GRPC.ServerCredentials.createInsecure();
     } else {
         let ca = FS.readFileSync(this.ca);
         let cert = FS.readFileSync(this.cert);
