@@ -10,7 +10,7 @@ import * as protoLoader from '@grpc/proto-loader';
 
 export class ServiceContainer {
   static services: { service: any, target: Function }[] = [];
-  static routes: { target: Function, route: Function, func: Function }[] = [];
+  static routes: { target: Function, route: Function, func?: Function }[] = [];
   /**
    * @description registry grpc service
    * @author Xuezi
@@ -47,8 +47,8 @@ export class ServiceContainer {
     this.routes.push({ target, route });
   }
 
-  static generateRouteFunc() {
-    return this._generateRouteFunc(...arguments);
+  static generateRouteFunc(service: any, route: Function) {
+    return this._generateRouteFunc(service, route);
   }
 
   private static _generateRouteFunc(service: any, route: Function): Function {
