@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "diagnostics": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "target": "es6",
