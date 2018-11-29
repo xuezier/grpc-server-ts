@@ -1,6 +1,5 @@
 {
   "rules": {
-    // TSLint rules.
     "no-internal-module": true,
     "typedef-whitespace": [
       true,

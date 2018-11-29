@@ -56,42 +56,84 @@ export class ServiceContainer {
     let rawFunc = service[key];
     let {requestStream, responseStream} = rawFunc;
 
-    let response = function(e, call, data, callback) {
-      if (responseStream) {
-        if (e) return call.emit('error', e);
-        if (data) call.write(data);
-      } else {
-        if (e) return callback(e);
-        callback(null, data);
-      }
-    };
-
-    let func = async function(call) {
-      let callback = arguments[1];
-      if (requestStream) {
-        call.on('data', async function(data) {
+    let func;
+    if (requestStream && responseStream) {
+      // requestStream: true
+      // responseStream: true
+      func = async function(call) {
+        call.on('data', async function(chunk) {
           try {
-            let result = await route(data);
-            response(null, call, result, callback);
+            let result = await route(chunk);
+            call.write(result);
           } catch (e) {
-            response(e, call, null, callback);
+            call.emit('error', e);
           }
         });
+
         call.on('error', error => {
           console.error(error);
         });
-        call.on('end', function() {
+
+        call.on('end', () => {
           call.end && call.end();
         });
-      } else {
+      };
+    } else if (requestStream && !responseStream) {
+      // requestStream: true
+      // responseStream: false
+      func = async function(call) {
+        let callback = arguments[1];
+
+        call.on('data', async chunk => {
+          try {
+            let result = await route(chunk);
+            callback(null, result);
+          } catch (e) {
+            callback(e);
+          }
+        });
+
+        call.on('error', error => {
+          console.error(error);
+        });
+
+        call.on('end', () => {
+          call.end && call.end();
+        });
+      };
+    } else if (!requestStream && responseStream) {
+      // requestStream: false
+      // responseStream: true
+      func = async function(call) {
         try {
           let result = await route(call.request);
-          response(null, call, result, callback);
+          call.write(result);
         } catch (e) {
-          response(e, call, null, callback);
+          call.emit('error', e);
         }
-      }
-    };
+
+        call.on('error', error => {
+          console.error(error);
+        });
+
+        call.on('end', () => {
+          call.end && call.end();
+        });
+      };
+    } else {
+      // requestStream: false
+      // responseStream: false
+      func = async function(call) {
+        let callback = arguments[1];
+
+        try {
+          let result = await route(call.request);
+          callback(null,result);
+        } catch (e) {
+          callback(e);
+        }
+      };
+    }
 
     return func;
   }
