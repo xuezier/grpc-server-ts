@@ -32,11 +32,26 @@ export class ServiceContainer {
     const packages = Object.keys(protoDescriptor);
     for (let packageKey of packages) {
       for (let key in protoDescriptor[packageKey]) {
-        if (protoDescriptor[packageKey][key].hasOwnProperty('service')) {
-          this.services.push({ service: protoDescriptor[packageKey][key]['service'], target });
-        }
+          this._setServiceClient(protoDescriptor[packageKey][key], target);
+        // if (protoDescriptor[packageKey][key].hasOwnProperty('service')) {
+        //   this.services.push({ service: protoDescriptor[packageKey][key]['service'], target });
+        // }
       }
     }
+  }
+
+  private static _setServiceClient(service: any, target: Function) {
+      if(!service) {
+          return;
+      }
+
+      if(service.name === 'ServiceClient') {
+            this.services.push({service: service['service'], target});
+      } else {
+          for(const key in service) {
+              this._setServiceClient(service[key], target);
+          }
+      }
   }
 
   static registryRoute(target: Function, route: Function) {
