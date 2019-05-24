@@ -62,9 +62,9 @@ RPC.start();
 ```
 
 ### Sponsor
-![wechat](http://cdn-public.imxuezi.com/WX20190524-211855@2x.png)
+![wechat](http://cdn-public.imxuezi.com/WX20190524-211855@2x.png?imageView2/0/w/200/q/100)
 
-![alipay](http://cdn-public.imxuezi.com/WX20190524-212118@2x.png)
+![alipay](http://cdn-public.imxuezi.com/WX20190524-212118@2x.png?imageView2/0/w/200/q/100)
 
 [wechat-pay]: http://cdn-public.imxuezi.com/WX20190524-211855@2x.png
 [npm-image]: https://img.shields.io/npm/v/grpc-server-ts.svg?style=flat-square
